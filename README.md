@@ -1,4 +1,4 @@
-# VSB-ZPG (Basics of Computer Graphics)
+# ZPG (Basics of Computer Graphics)
 
 This repository contains a project for the "Základy počítačové grafiky" (Basics of Computer Graphics) course at VSB. The project is focused on creating a 3D graphics application using OpenGL and C++.
 
