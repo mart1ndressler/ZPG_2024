@@ -1,0 +1,52 @@
+Přepínání scén za běhu (Ano/Ne) ANO 
+
+Přepínání scén je implementováno v třídě Scene pomocí metody currScene(int sceneNumber). V metodě draw() v třídě Application se kontroluje stisk kláves 1, 2, 3 a 4 pro přepínání mezi scénami.
+
+a) Základní scéna (Ano/Ne)  ANO 
+
+Tato scéna je implementována v metodě setupScene1() v třídě Scene.
+
+b) Scéna s lesem (Ano/Ne) ANO 
+
+Tato scéna je implementována v metodě setupScene2() v třídě Scene.
+
+c) Scéna se čtyřmi kuličkami (Ano/Ne) ANO 
+
+Tato scéna je implementována v metodě setupScene3() v třídě Scene.
+
+d) Scéna pro demonstraci použití všech shaderů (Konstantní, Lambert, Phong a Blinn) (Ano/Ne) ANO 
+
+Tato scéna je implementována v metodě setupScene4() v třídě Scene.
+
+Světlo (Ano/Ne) (kde a jak máte naimplementováno, jak se updatuje změna světla) ANO 
+
+Světlo je implementováno pomocí třídy Light, která obsahuje pozici, barvu a intenzitu světla. Scény mají vlastní světla, například light_sc2, light_sc3, a light_sc4 pro jednotlivé scény. Každá instance světla využívá design pattern Observer, který aktualizuje objekty při změně světla voláním notifyObservers() v příslušných setterech (setPosition, setColor, setIntensity).
+
+Základní třídy (ShaderProgram, DrowableObject, Camera, Controller) (Ano/Ne) (kdo zodpovídá za vykreslování, kde jsou uloženy modely, shadery atd.) ANO 
+
+ShaderProgram: Třída zodpovědná za načítání shaderů a práci s uniformními proměnnými.
+DrawableObject: Zodpovídá za vykreslování modelů. Obsahuje model, shader a transformační komponentu (transformationcom).
+Camera: Zodpovídá za pohledovou matici a používá Observer pattern k informování shaderů o změnách.
+Scene: Zodpovídá za organizaci a nastavení všech objektů ve scénách. Modely a shadery jsou uloženy jako atributy jednotlivých scén (scene1Objects, scene2Trees, triangleShaderID atd.).
+
+Transformace (Composite pattern) (Ano/Ne) (Máte pro transformace základní třídy? Co a jak jste použili?) ANO
+
+Pro transformace se používá TransformationComposite a jednotlivé komponenty jako Scale, Rotation, a Translation. Každý DrawableObject má svoji transformační složku (transformationcom), která se aplikuje na modelovou matici objektu pomocí Composite patternu.
+
+Základy OOP
+
+a) Encapsulation (zapouzdření) (Ano/Ne) (Kde a jak?) ANO
+
+Zapouzdření je implementováno v několika třídách, např. v Camera, Light a ShaderProgram, které mají privátní atributy a veřejné metody pro přístup k nim.
+
+b) Inheritance (dědičnost) (Ano/Ne) (Kde a jak?) ANO
+
+Dědičnost je použita mezi třídami TransformationComponent a jejími potomky (Scale, Rotation, Translation). Dále Subject a Observer implementují základní strukturu pro design pattern Observer.
+
+c) Polymorphism (polymorfismus neboli mnohotvárnost) (Ano/Ne) (Kde a jak?) ANO
+
+Polymorfismus je aplikován v TransformationComponent, kde jednotlivé transformační třídy (např. Scale, Rotation) implementují vlastní apply metodu. Dále je polymorfismus využitý v Observer patternu, kde Observer má virtuální metodu update.
+
+Vertex a fragment shadery prosím uložte do textových souboru a použijte přiložený ShaderLoader pro jejich načítání (Ano/Ne) (Kde a jak jste použili?) ANO
+
+Vertex a fragment shadery jsou uloženy v textových souborech (vertex_shader.glsl, fragment_shader.glsl atd.). Načítání shaderů je řešeno třídou ShaderLoader, která je používána v třídě ShaderProgram.
