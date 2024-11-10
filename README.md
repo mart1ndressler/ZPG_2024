@@ -10,11 +10,49 @@ The main objectives of this project include:
 - Applying various shading techniques, including Phong shading, Lambert shading, and Blinn shading, to create realistic lighting effects.
 - Using object-oriented programming principles to manage scenes, transformations, and shaders effectively.
 - Implementing a camera system that allows for dynamic movement and multiple viewing perspectives.
+- Supporting multiple light sources, including dynamic, moving lights that simulate 'will-o'-the-wisps' in a forest scene.
+- Integrating attenuation for lights, ensuring that light intensity decreases with distance for a more realistic effect.
+- Enabling dynamic rotations for certain objects and random translations to simulate natural movement, like rotating trees or moving lights.
 
 ## Features
 
-- **Multiple Scenes**: The project contains multiple predefined scenes, each showcasing different models and shaders.
-- **Lighting and Shading**: Implements lighting models for realistic rendering, such as ambient, diffuse, and specular reflections.
-- **Camera Controls**: Enables navigation through scenes with camera movements (WASD keys) and mouse controls.
-- **Shaders**: Uses GLSL shaders for custom lighting and material effects.
-- **Transformation System**: Includes composite transformations for scaling, rotation, and translation of objects.
+- **Multiple Scenes**: The project contains multiple predefined scenes, each showcasing different models and shaders, including:
+  - A basic scene with a single triangle.
+  - A forest scene with multiple trees and bushes, along with dynamic lighting.
+  - A Phong shading scene featuring spheres.
+  - A scene demonstrating different shading models (Phong, Lambert, Blinn, and Constant) on various shapes.
+- **Lighting and Shading**:
+  - Supports multiple lights with different colors and positions.
+  - Implements lighting models for realistic rendering, including ambient, diffuse, and specular reflections.
+  - Uses distance-based attenuation to simulate realistic light fall-off.
+- **Dynamic Object Transformations**:
+  - Objects can rotate dynamically, such as rotating trees in the forest.
+  - Moving lights simulate 'will-o'-the-wisps,' with random translation for natural movement.
+- **Camera Controls**: Enables navigation through scenes with camera movements (WASD keys) and mouse controls. Different cameras are used in different scenes to showcase various perspectives.
+- **Shaders**:
+  - Uses GLSL shaders for custom lighting and material effects.
+  - Implements various shading models, including Phong, Lambert, Blinn, and Constant shading.
+- **Transformation System**:
+  - Includes composite transformations for scaling, rotation, and translation of objects.
+  - A composite transformation system allows for reusable and flexible transformations across objects.
+
+## Screenshots
+
+Please include screenshots demonstrating the following:
+1. **Phong Shading** - Displaying four spheres with Phong shading.
+2. **View from Behind a Sphere** - Showing a different camera perspective.
+3. **Window Resizing** - Verifying proper scene resizing with window adjustments.
+4. **Tree Rotation** - Demonstrating dynamic rotation of trees in the forest scene.
+5. Additional screenshots or videos if desired (e.g., uploaded to YouTube) for further demonstration.
+
+## Project Structure
+
+The project consists of the following main components:
+
+- **Application**: Handles the setup of the OpenGL context, window creation, and main loop.
+- **Scene**: Manages different scenes, including object setup, lighting, and transformations.
+- **DrawableObject**: Represents objects within a scene with assigned shaders and transformations.
+- **Shader and ShaderProgram**: Manages individual shaders and shader programs.
+- **Light**: Handles light properties and supports multiple lights within a scene.
+- **Camera**: Controls camera movement and view matrix updates.
+- **Transformations**: Provides classes for scaling, rotation, and translation transformations, allowing for composite transformations.
