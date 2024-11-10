@@ -1,5 +1,4 @@
 #include "ShaderProgram.h"
-#include <iostream>
 
 using namespace std;
 using namespace glm;
@@ -7,7 +6,7 @@ using namespace glm;
 ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath, Camera* camera) : camera(camera) 
 {
     if(camera) camera->addObserver(this);
-    //loadShaders(vertexPath, fragmentPath);
+    loadShaders(vertexPath, fragmentPath);
 }
 
 void ShaderProgram::loadShaders(const string& vertexPath, const string& fragmentPath)
@@ -22,6 +21,7 @@ void ShaderProgram::setUniform(const string& name, const mat4& matrix) const
     GLuint location = glGetUniformLocation(programID, name.c_str());
     glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(matrix));
 }
+
 void ShaderProgram::update()
 {
     mat4 viewMatrix = camera->getViewMatrix();
@@ -40,3 +40,5 @@ void ShaderProgram::checkLinkingErrors(GLuint program) const
         cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
     }
 }
+
+GLuint ShaderProgram::getProgramID() const {return programID;}

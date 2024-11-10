@@ -22,6 +22,7 @@ public:
     void use() const;
     void setUniform(const string& name, const mat4& matrix) const;
     virtual void update() override;
+    GLuint getProgramID() const;
 
 private:
     void checkLinkingErrors(GLuint program) const;

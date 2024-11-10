@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Shader 
+class Shader
 {
 public:
     Shader(const char* shaderPath, GLenum shaderType);

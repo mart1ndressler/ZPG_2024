@@ -107,12 +107,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week4\DRE0065_week4\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week4\DRE0065_week4\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week4\DRE0065_week4\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week4\DRE0065_week4\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week4\DRE0065_week4\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>

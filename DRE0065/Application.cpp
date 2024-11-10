@@ -30,6 +30,7 @@ void Application::initWindow()
     glfwSwapInterval(1);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
 void Application::initOpenGL() 
@@ -90,4 +91,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastY = ypos;
     scene->camera->processMouseMovement((float)xoffset, (float)yoffset);
     scene->camera2->processMouseMovement((float)xoffset, (float)yoffset); 
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
+    if(scene) scene->updateProjectionMatrix(width, height);
+    glViewport(0, 0, width, height);
 }
