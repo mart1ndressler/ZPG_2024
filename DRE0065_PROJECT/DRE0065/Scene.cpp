@@ -213,7 +213,6 @@ void Scene::setupScene3()
 
         scene3Objects.push_back(sphereObject);
     }
-    ShaderProgram* phongShader = new ShaderProgram("phong_vertex_shader.glsl", "phong_fragment_shader.glsl", camera2);
 }
 
 void Scene::setupScene4()
