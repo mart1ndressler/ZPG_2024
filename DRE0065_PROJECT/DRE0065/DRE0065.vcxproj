@@ -107,12 +107,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week7\DRE0065_week7\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
@@ -139,6 +139,7 @@
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Rotation.cpp" />
     <ClCompile Include="Scale.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="plain.h" />
@@ -178,9 +180,10 @@
     <None Include="constant_fragment_shader.glsl" />
     <None Include="constant_vertex_shader.glsl" />
     <None Include="fragment_shader.glsl" />
-    <None Include="fragment_shader1.glsl" />
+    <None Include="day_fragment_shader.glsl" />
     <None Include="lambert_fragment_shader.glsl" />
     <None Include="lambert_vertex_shader.glsl" />
+    <None Include="night_fragment_shader.glsl" />
     <None Include="phong_fragment_shader.glsl" />
     <None Include="phong_vertex_shader.glsl" />
     <None Include="vertex_shader.glsl" />

@@ -57,6 +57,9 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -122,12 +125,15 @@
     <ClInclude Include="ShaderLoader.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_shader.glsl" />
     <None Include="vertex_shader.glsl" />
     <None Include="vertex_shader1.glsl" />
-    <None Include="fragment_shader1.glsl" />
+    <None Include="day_fragment_shader.glsl" />
     <None Include="phong_vertex_shader.glsl" />
     <None Include="phong_fragment_shader.glsl" />
     <None Include="constant_vertex_shader.glsl" />
@@ -136,5 +142,6 @@
     <None Include="lambert_fragment_shader.glsl" />
     <None Include="blinn_vertex_shader.glsl" />
     <None Include="blinn_fragment_shader.glsl" />
+    <None Include="night_fragment_shader.glsl" />
   </ItemGroup>
 </Project>

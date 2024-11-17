@@ -1,15 +1,28 @@
 #include "Light.h"
 
-Light::Light(const vec3& position, const vec3& color, float intensity) : position(position), color(color), intensity(intensity), transformation(nullptr) {}
+Light::Light(const vec3& position, const vec3& color, float intensity) : position(position), color(color), intensity(intensity), transformation(NULL), type(POINT), direction(vec3(0.0f)), innerCutOff(0.0f), outerCutOff(0.0f) {}
 
 vec3 Light::getPosition() const {return position;}
 vec3 Light::getColor() const {return color;}
 float Light::getIntensity() const {return intensity;}
+vec3 Light::getDirection() const {return direction;}
+Light::LightType Light::getLightType() const {return type;}
+float Light::getInnerCutOff() const {return innerCutOff;}
+float Light::getOuterCutOff() const {return outerCutOff;}
+
 TransformationComposite* Light::getTransformation() const {return transformation;}
 
 void Light::setPosition(const vec3& position) {this->position = position;}
 void Light::setColor(const vec3& color) {this->color = color;}
 void Light::setIntensity(float intensity) {this->intensity = intensity;}
+void Light::setDirection(const vec3& direction) {this->direction = direction;}
+void Light::setLightType(LightType type) {this->type = type;}
+void Light::setCutOff(float innerCutOff, float outerCutOff)
+{
+    this->innerCutOff = glm::cos(glm::radians(innerCutOff));
+    this->outerCutOff = glm::cos(glm::radians(outerCutOff));
+}
+
 void Light::setTransformation(TransformationComposite* transformation) {this->transformation = transformation;}
 
 void Light::setLightUniforms(ShaderProgram* shaderProgram, const vector<Light*>& lights)
@@ -18,12 +31,25 @@ void Light::setLightUniforms(ShaderProgram* shaderProgram, const vector<Light*>&
     GLuint programID = shaderProgram->getProgramID();
 
     glUniform1i(glGetUniformLocation(programID, "numLights"), static_cast<GLint>(lights.size()));
-    for(int i=0; i < lights.size(); i++)
+    for(int i = 0; i < lights.size(); i++)
     {
         string posUniform = "lightPositions[" + to_string(i) + "]";
         string colorUniform = "lightColors[" + to_string(i) + "]";
+        string directionUniform = "lightDirections[" + to_string(i) + "]";
+        string isDirectionalUniform = "isDirectional[" + to_string(i) + "]";
+        string innerCutOffUniform = "innerCutOff[" + to_string(i) + "]";
+        string outerCutOffUniform = "outerCutOff[" + to_string(i) + "]";
+
         glUniform3fv(glGetUniformLocation(programID, posUniform.c_str()), 1, glm::value_ptr(lights[i]->getPosition()));
         glUniform3fv(glGetUniformLocation(programID, colorUniform.c_str()), 1, glm::value_ptr(lights[i]->getColor()));
+        glUniform1i(glGetUniformLocation(programID, isDirectionalUniform.c_str()), lights[i]->getLightType() == DIRECTIONAL);
+
+        if(lights[i]->getLightType() == DIRECTIONAL || lights[i]->getLightType() == SPOTLIGHT) glUniform3fv(glGetUniformLocation(programID, directionUniform.c_str()), 1, glm::value_ptr(lights[i]->getDirection()));
+        if(lights[i]->getLightType() == SPOTLIGHT)
+        {
+            glUniform1f(glGetUniformLocation(programID, innerCutOffUniform.c_str()), lights[i]->getInnerCutOff());
+            glUniform1f(glGetUniformLocation(programID, outerCutOffUniform.c_str()), lights[i]->getOuterCutOff());
+        }
     }
     glUseProgram(0);
 }

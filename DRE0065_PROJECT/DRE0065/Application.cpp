@@ -2,6 +2,7 @@
 
 float lastX = 400.0f, lastY = 300.0f;
 bool firstMouse = true;
+bool rightMousePressed = false;
 
 Application::Application()
 {
@@ -10,18 +11,18 @@ Application::Application()
     scene = new Scene(window);
 }
 
-Application::~Application() 
+Application::~Application()
 {
     delete scene;
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
-void Application::initWindow() 
+void Application::initWindow()
 {
     if(!glfwInit()) exit(EXIT_FAILURE);
     window = glfwCreateWindow(800, 600, "DRE0065 - PROJECT ZPG", nullptr, nullptr);
-    if(!window) 
+    if(!window)
     {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -29,14 +30,14 @@ void Application::initWindow()
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
     glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void Application::initOpenGL() 
+void Application::initOpenGL()
 {
     glewExperimental = GL_TRUE;
-    if(glewInit() != GLEW_OK) 
+    if(glewInit() != GLEW_OK)
     {
         cerr << "ERROR: Could not start GLEW\n";
         exit(EXIT_FAILURE);
@@ -54,9 +55,9 @@ void Application::initOpenGL()
     printf("---------------------------------------------------------------------------------------\n");
 }
 
-void Application::run() 
+void Application::run()
 {
-    while(!glfwWindowShouldClose(window)) 
+    while(!glfwWindowShouldClose(window))
     {
         float currentFrame = glfwGetTime();
         static float lastFrame = 0.0f;
@@ -68,6 +69,7 @@ void Application::run()
         if(glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) scene->currScene(2);
         if(glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) scene->currScene(3);
         if(glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) scene->currScene(4);
+        if(glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) scene->currScene(5);
 
         scene->draw(deltaTime);
         glfwPollEvents();
@@ -79,18 +81,32 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
     if(!scene || !scene->camera || !scene->camera2) return;
-    if(firstMouse)
+
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
     {
+        rightMousePressed = true;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+        if(firstMouse)
+        {
+            lastX = xpos;
+            lastY = ypos;
+            firstMouse = false;
+        }
+
+        double xoffset = xpos - lastX, yoffset = lastY - ypos;
         lastX = xpos;
         lastY = ypos;
-        firstMouse = false;
-    }
 
-    double xoffset = xpos - lastX, yoffset = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-    scene->camera->processMouseMovement((float)xoffset, (float)yoffset);
-    scene->camera2->processMouseMovement((float)xoffset, (float)yoffset); 
+        scene->camera->processMouseMovement((float)xoffset, (float)yoffset);
+        scene->camera2->processMouseMovement((float)xoffset, (float)yoffset);
+    }
+    else
+    {
+        rightMousePressed = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        firstMouse = true;
+    }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)

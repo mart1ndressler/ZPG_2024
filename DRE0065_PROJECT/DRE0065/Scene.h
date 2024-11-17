@@ -31,10 +31,12 @@ public:
     Camera* camera2;
 
 private:
-    vector<DrawableObject*> scene1Objects, scene2Trees, scene2Ground, scene2Bushes, scene3Objects, scene4Objects;
-    vector<Light*> scene2Lights;
+	vector<DrawableObject*> scene1Objects, scene2Trees, scene2Ground, scene2Bushes, scene3Objects, scene4Objects, scene5Trees, scene5Ground, scene5Bushes;
+    vector<Light*> scene2Lights, scene5Lights;
     int currentScene, currentShader;
     mat4 projectionMatrix;
+    vector<vec3> lightDirections_scene2, lightDirections_scene5;
+    vector<float> timeSinceDirectionChange_scene2, timeSinceDirectionChange_scene5;
 
     ShaderProgram* triangleShader;
 	ShaderProgram* groundShader;
@@ -44,15 +46,20 @@ private:
 	ShaderProgram* lambertShader;
 	ShaderProgram* phongShader;
 	ShaderProgram* blinnShader;
+    ShaderProgram* groundShaderNight;
+    ShaderProgram* treeShaderNight;
+    ShaderProgram* bushShaderNight;
 
     void setupScene1();
     void setupScene2();
     void setupScene3();
     void setupScene4();
+	void setupScene5();
 
     GLFWwindow* window;
     Light* light_sc2;
     Light* light_sc3;
     Light* light_sc4;
+    Light* light_sc5;
 };
 #endif
