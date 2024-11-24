@@ -67,9 +67,11 @@ The project contains multiple predefined scenes, each showcasing different model
 1. **Dependencies**:
    - OpenGL
    - GLFW
+   - GLM
+   - GLEW
    - SOIL (Simple OpenGL Image Library)
 2. **Compilation**:
-   - Use a C++ compiler with OpenGL and GLFW linked.
+   - Use a C++ compiler with OpenGL, GLFW, GLM, GLEW and SOIL linked.
 3. **Controls**:
    - `WASD`: Camera movement.
    - Mouse: Look around.
