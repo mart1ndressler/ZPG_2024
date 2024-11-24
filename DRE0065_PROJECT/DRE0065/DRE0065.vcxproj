@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,14 +108,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\soil\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\glew-2.1.0\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\glfw-3.4.bin.WIN64\include;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\glm-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week8\DRE0065_week8\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\soil\lib-vc2012\Platform_x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\glew-2.1.0\lib\Release\x64;C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\Libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;glew32.lib;opengl32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/ignore:4099 /LTCG /ignore:4075 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,6 +168,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="skycube.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="suzi_smooth.h" />
@@ -186,8 +189,21 @@
     <None Include="night_fragment_shader.glsl" />
     <None Include="phong_fragment_shader.glsl" />
     <None Include="phong_vertex_shader.glsl" />
+    <None Include="skybox_fragment.glsl" />
+    <None Include="skybox_vertex.glsl" />
+    <None Include="texture_fragment.glsl" />
+    <None Include="texture_vertex.glsl" />
     <None Include="vertex_shader.glsl" />
     <None Include="vertex_shader1.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="grass_zpg.jpg" />
+    <Image Include="negx.jpg" />
+    <Image Include="negy.jpg" />
+    <Image Include="negz.jpg" />
+    <Image Include="posx.jpg" />
+    <Image Include="posy.jpg" />
+    <Image Include="posz.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

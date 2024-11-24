@@ -128,6 +128,9 @@
     <ClInclude Include="Material.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="skycube.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_shader.glsl" />
@@ -143,5 +146,32 @@
     <None Include="blinn_vertex_shader.glsl" />
     <None Include="blinn_fragment_shader.glsl" />
     <None Include="night_fragment_shader.glsl" />
+    <None Include="texture_fragment.glsl" />
+    <None Include="texture_vertex.glsl" />
+    <None Include="skybox_vertex.glsl" />
+    <None Include="skybox_fragment.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="grass_zpg.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="negx.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="negy.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="negz.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="posx.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="posy.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
+    <Image Include="posz.jpg">
+      <Filter>Soubory zdrojů</Filter>
+    </Image>
   </ItemGroup>
 </Project>

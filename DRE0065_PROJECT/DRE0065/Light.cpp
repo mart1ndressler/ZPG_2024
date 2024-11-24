@@ -31,7 +31,7 @@ void Light::setLightUniforms(ShaderProgram* shaderProgram, const vector<Light*>&
     GLuint programID = shaderProgram->getProgramID();
 
     glUniform1i(glGetUniformLocation(programID, "numLights"), static_cast<GLint>(lights.size()));
-    for(int i = 0; i < lights.size(); i++)
+    for(int i=0; i < lights.size(); i++)
     {
         string posUniform = "lightPositions[" + to_string(i) + "]";
         string colorUniform = "lightColors[" + to_string(i) + "]";

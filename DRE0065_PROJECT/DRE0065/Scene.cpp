@@ -32,7 +32,7 @@ void Scene::setupScene1()
     triangleShader->use();
 
     Model* triangleModel = new Model();
-    triangleModel->setupModel(points, sizeof(points), 3, false);
+    triangleModel->setupModel(points, sizeof(points), 3, false, false);
 
     DrawableObject* triangleObject = new DrawableObject(triangleModel, triangleShader, 3, GL_TRIANGLES);
     scene1Objects.push_back(triangleObject);
@@ -40,9 +40,10 @@ void Scene::setupScene1()
 
 void Scene::setupScene2()
 {
-    groundShader = new ShaderProgram("vertex_shader1.glsl", "fragment_shader.glsl", camera);
+	groundShader = new ShaderProgram("texture_vertex.glsl", "texture_fragment.glsl", camera);
     treeShader = new ShaderProgram("vertex_shader1.glsl", "day_fragment_shader.glsl", camera);
     bushShader = new ShaderProgram("vertex_shader1.glsl", "day_fragment_shader.glsl", camera);
+    skyboxShader = new ShaderProgram("skybox_vertex.glsl", "skybox_fragment.glsl", camera);
 
     light_sc2 = new Light(vec3(5.0f, 10.0f, -5.0f), vec3(1.0f, 1.0f, 1.0f), 1.0f);
     light_sc2->setPosition(vec3(-2.0f, 2.0f, 0.0f));
@@ -81,9 +82,28 @@ void Scene::setupScene2()
         scene2Lights.push_back(newLight);
     }
 
-    Model* groundModel = new Model();
-    groundModel->setupModel(plain, sizeof(plain), 6, true);
+    grassTexture = SOIL_load_OGL_texture("grass_zpg.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y);
+    if(!grassTexture) cerr << "Failed to load texture: grass_zpg.jpg" << endl;
+    else cerr << "Texture grass_zpg.jpg loaded successfully, ID: " << grassTexture << endl;
 
+    cubemapTexture = SOIL_load_OGL_cubemap("posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg", SOIL_LOAD_RGB, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+    if(!cubemapTexture) cerr << "Failed to load cubemap textures!" << endl;
+    else cerr << "Cubemap textures loaded successfully, ID: " << cubemapTexture << endl;
+
+    Model* skyboxModel = new Model();
+    skyboxModel->setupModel(skycube, sizeof(skycube), 36, false, false);
+
+    DrawableObject* skyboxObject = new DrawableObject(skyboxModel, skyboxShader, 36, GL_TRIANGLES);
+    scene2Skybox.push_back(skyboxObject);
+
+    glBindTexture(GL_TEXTURE_2D, grassTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    Model* groundModel = new Model();
+    groundModel->setupModel(plain, sizeof(plain), 6, true, true);
     DrawableObject* groundObject = new DrawableObject(groundModel, groundShader, 6, GL_TRIANGLES);
 
     TransformationComposite* groundTransform = new TransformationComposite();
@@ -122,7 +142,7 @@ void Scene::setupScene2()
         }
 
         Model* treeModel = new Model();
-        treeModel->setupModel(tree, sizeof(tree), 92814, true);
+        treeModel->setupModel(tree, sizeof(tree), 92814, true, false);
         DrawableObject* treeObject = new DrawableObject(treeModel, treeShader, 92814, GL_TRIANGLES);
         treeObject->material = Material(vec3(0.05f, 0.05f, 0.05f), vec3(0.1f, 0.3f, 0.1f), vec3(0.1f, 0.1f, 0.1f), 32.0f);
 
@@ -147,7 +167,7 @@ void Scene::setupScene2()
         objectPositions.push_back(vec3(posX, 0.0f, posZ));
     }
 
-    for(int i = 0; i < numBushes; i++)
+    for(int i=0; i < numBushes; i++)
     {
         bool validPosition = false;
         float posX, posZ;
@@ -168,7 +188,7 @@ void Scene::setupScene2()
         }
 
         Model* bushModel = new Model();
-        bushModel->setupModel(bushes, sizeof(bushes), 8730, true);
+        bushModel->setupModel(bushes, sizeof(bushes), 8730, true, false);
 
         DrawableObject* bushObject = new DrawableObject(bushModel, bushShader, 8730, GL_TRIANGLES);
         bushObject->material = Material(vec3(0.08f, 0.18f, 0.08f), vec3(0.2f, 0.5f, 0.2f), vec3(0.05f, 0.05f, 0.05f), 64.0f);
@@ -208,7 +228,7 @@ void Scene::setupScene3()
     for(int i=0; i < 4; i++)
     {
         Model* sphereModel = new Model();
-        sphereModel->setupModel(sphere, sizeof(sphere), 2880, true);
+        sphereModel->setupModel(sphere, sizeof(sphere), 2880, true, false);
 
         DrawableObject* sphereObject = new DrawableObject(sphereModel, phongShader, 2880, GL_TRIANGLES);
 
@@ -243,8 +263,8 @@ void Scene::setupScene4()
     for(int i=0; i < 4; i++)
     {
         Model* model = new Model();
-        if(i < 2) model->setupModel(suziSmooth, sizeof(suziSmooth), 2904, true);
-        else model->setupModel(sphere, sizeof(sphere), 2880, true);
+        if(i < 2) model->setupModel(suziSmooth, sizeof(suziSmooth), 2904, true, false);
+        else model->setupModel(sphere, sizeof(sphere), 2880, true, false);
 
         DrawableObject* object = new DrawableObject(model, shaders[i], (i < 2 ? 2904 : 2880), GL_TRIANGLES);
         TransformationComposite* objTransform = new TransformationComposite();
@@ -261,7 +281,7 @@ void Scene::setupScene4()
 
 void Scene::setupScene5()
 {
-    groundShaderNight = new ShaderProgram("vertex_shader1.glsl", "fragment_shader.glsl", camera);
+	groundShaderNight = new ShaderProgram("texture_vertex.glsl", "texture_fragment.glsl", camera);
     treeShaderNight = new ShaderProgram("vertex_shader1.glsl", "night_fragment_shader.glsl", camera);
     bushShaderNight = new ShaderProgram("vertex_shader1.glsl", "night_fragment_shader.glsl", camera);
 
@@ -274,26 +294,26 @@ void Scene::setupScene5()
     directionalLight->setLightType(Light::DIRECTIONAL);
     scene5Lights.push_back(directionalLight);
     */
-        
+
     /*
     for (int i = 0; i < 4; i++)
-	{
+    {
         Light* spotlight = new Light(vec3(0.0f, 2.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f), 20.0f);
         spotlight->setDirection(normalize(vec3(0.0f, 0.0f, 0.0f) - vec3(0.0f, 5.0f, 0.0f)));
         spotlight->setLightType(Light::SPOTLIGHT);
         spotlight->setCutOff(20.0f, 30.0f);
         scene5Lights.push_back(spotlight);
-	}
+    }
     */
-    
+
     Light* cameraSpotlight = new Light(camera->position, vec3(1.0f, 1.0f, 1.0f), 20.0f);
     cameraSpotlight->setDirection(camera->front);
     cameraSpotlight->setLightType(Light::SPOTLIGHT);
-    cameraSpotlight->setCutOff(20.0f, 30.0f);
+    cameraSpotlight->setCutOff(5.0f, 10.0f);
     scene5Lights.push_back(cameraSpotlight);
-  
+
     Model* groundModel = new Model();
-    groundModel->setupModel(plain, sizeof(plain), 6, true);
+    groundModel->setupModel(plain, sizeof(plain), 6, true, true);
 
     DrawableObject* groundObject = new DrawableObject(groundModel, groundShaderNight, 6, GL_TRIANGLES);
 
@@ -332,10 +352,9 @@ void Scene::setupScene5()
         }
 
         Model* treeModel = new Model();
-        treeModel->setupModel(tree, sizeof(tree), 92814, true);
+        treeModel->setupModel(tree, sizeof(tree), 92814, true, false);
         DrawableObject* treeObject = new DrawableObject(treeModel, treeShaderNight, 92814, GL_TRIANGLES);
-        treeObject->material = Material(vec3(0.25f, 0.15f, 0.05f), vec3(0.5f, 0.3f, 0.1f), vec3(0.2f, 0.1f, 0.05f), 64.0f);
-
+        treeObject->material = Material(vec3(0.05f, 0.05f, 0.05f), vec3(0.1f, 0.3f, 0.1f), vec3(0.1f, 0.1f, 0.1f), 32.0f);
         float randomScale = treeScaleDist(generator);
         float randomRotation = glm::radians(rotationDist(generator));
 
@@ -378,11 +397,10 @@ void Scene::setupScene5()
         }
 
         Model* bushModel = new Model();
-        bushModel->setupModel(bushes, sizeof(bushes), 8730, true);
+        bushModel->setupModel(bushes, sizeof(bushes), 8730, true, false);
 
         DrawableObject* bushObject = new DrawableObject(bushModel, bushShaderNight, 8730, GL_TRIANGLES);
-        bushObject->material = Material(vec3(0.2f, 0.15f, 0.1f), vec3(0.4f, 0.3f, 0.2f), vec3(0.15f, 0.1f, 0.05f), 64.0f);
-
+        bushObject->material = Material(vec3(0.08f, 0.18f, 0.08f), vec3(0.2f, 0.5f, 0.2f), vec3(0.05f, 0.05f, 0.05f), 64.0f);
         float randomScale = bushScaleDist(generator);
         float randomRotation = glm::radians(rotationDist(generator));
 
@@ -428,7 +446,6 @@ void Scene::setUniformsAndDrawObjects(ShaderProgram* shaderProgram, const vec3& 
             glUniform3fv(glGetUniformLocation(programID, "material.specular"), 1, glm::value_ptr(obj->material.getSpecular()));
             glUniform1f(glGetUniformLocation(programID, "material.shininess"), obj->material.getShininess());
         }
-
         if(setColor)
         {
             GLuint objectColorLoc = glGetUniformLocation(programID, "objectColor");
@@ -457,6 +474,19 @@ void Scene::updateProjectionMatrix(int width, int height)
 {
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     projectionMatrix = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+}
+
+void Scene::handleInput(int key)
+{
+    static float lastKeyPressTime = 0.0f;
+    float currentTime = glfwGetTime();
+
+    if(key == GLFW_KEY_T && (currentTime - lastKeyPressTime >= 0.2f))
+    {
+        skyboxFollowCamera = !skyboxFollowCamera;
+        lastKeyPressTime = currentTime;
+        cout << "Skybox Follow Camera: " << (skyboxFollowCamera ? "Enabled" : "Disabled") << endl;
+    }
 }
 
 void Scene::draw(float deltaTime)
@@ -498,10 +528,25 @@ void Scene::draw(float deltaTime)
         Light::setLightUniforms(bushShader, scene2Lights);
         setUniformsAndDrawObjects(bushShader, camera->position, lightPos2, lightColor2, vec3(0.3f, 0.5f, 0.3f), scene2Bushes, view, projectionMatrix, true, true);
 
-		groundShader->use();
+        groundShader->use();
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, grassTexture);
+        glUniform1i(glGetUniformLocation(groundShader->getProgramID(), "grassTexture"), 0);
         Light::setLightUniforms(groundShader, scene2Lights);
         setUniformsAndDrawObjects(groundShader, camera->position, lightPos2, lightColor2, vec3(0.0f, 0.0f, 0.0f), scene2Ground, view, projectionMatrix, true, false);
 
+        mat4 skyboxView;
+        if(skyboxFollowCamera) skyboxView = mat4(mat3(camera->getViewMatrix()));
+        else skyboxView = camera->getViewMatrix();
+
+        glDepthFunc(GL_LEQUAL);
+        skyboxShader->use();
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+        glUniform1i(glGetUniformLocation(skyboxShader->getProgramID(), "skybox"), 0);
+
+        setUniformsAndDrawObjects(skyboxShader, vec3(0.0f), vec3(0.0f), vec3(0.0f), vec3(0.0f), scene2Skybox, skyboxView, projectionMatrix, false, false);
+        glDepthFunc(GL_LESS);
         glUseProgram(0);
     }
     else if(currentScene == 3)
@@ -542,15 +587,15 @@ void Scene::draw(float deltaTime)
 
         Light::updateLightMovement(deltaTime, scene5Lights, lightDirections_scene5, timeSinceDirectionChange_scene5);
 
-		treeShaderNight->use();
+        treeShaderNight->use();
         Light::setLightUniforms(treeShaderNight, scene5Lights);
-        setUniformsAndDrawObjects(treeShaderNight, camera->position, lightPos5, lightColor5, vec3(0.6f, 0.3f, 0.1f), scene5Trees, view, projectionMatrix, true, true);
+        setUniformsAndDrawObjects(treeShaderNight, camera->position, lightPos5, lightColor5, vec3(0.2f, 0.4f, 0.2f), scene5Trees, view, projectionMatrix, true, true);
 
-		bushShaderNight->use();
+        bushShaderNight->use();
         Light::setLightUniforms(bushShaderNight, scene5Lights);
-        setUniformsAndDrawObjects(bushShaderNight, camera->position, lightPos5, lightColor5, vec3(0.1f, 0.3f, 0.1f), scene5Bushes, view, projectionMatrix, true, true);
+        setUniformsAndDrawObjects(bushShaderNight, camera->position, lightPos5, lightColor5, vec3(0.3f, 0.5f, 0.3f), scene5Bushes, view, projectionMatrix, true, true);
 
-		groundShaderNight->use();
+        groundShaderNight->use();
         Light::setLightUniforms(groundShaderNight, scene5Lights);
         setUniformsAndDrawObjects(groundShaderNight, camera->position, lightPos5, lightColor5, vec3(0.0f, 0.0f, 0.0f), scene5Ground, view, projectionMatrix, true, false);
 

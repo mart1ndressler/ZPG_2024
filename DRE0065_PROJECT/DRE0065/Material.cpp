@@ -1,6 +1,6 @@
 #include "Material.h"
 
-Material::Material() {}
+Material::Material() : ambient(0.0f), diffuse(0.0f), specular(0.0f), shininess(0.0f) {}
 Material::Material(const vec3& ambient, const vec3& diffuse, const vec3& specular, float shininess): ambient(ambient), diffuse(diffuse), specular(specular), shininess(shininess) {}
 
 const vec3& Material::getAmbient() const {return ambient;}

@@ -9,7 +9,7 @@ public:
     Model();
     ~Model();
     GLuint VAO;
-    void setupModel(const float* vertices, int size, int vertexCount, bool useNormals);
+	void setupModel(const float* vertices, int size, int vertexCount, bool useNormals, bool useTexCoords=false);
 
 private:
     GLuint VBO;

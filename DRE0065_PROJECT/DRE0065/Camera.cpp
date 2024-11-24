@@ -15,6 +15,7 @@ mat4 Camera::getViewMatrix()
     }
     return viewMatrix;
 }
+
 void Camera::processKeyboard(int direction, float deltaTime)
 {
     float velocity = movementSpeed * deltaTime;

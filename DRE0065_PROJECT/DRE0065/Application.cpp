@@ -70,6 +70,7 @@ void Application::run()
         if(glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) scene->currScene(3);
         if(glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) scene->currScene(4);
         if(glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) scene->currScene(5);
+		if(glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) scene->handleInput(GLFW_KEY_T);
 
         scene->draw(deltaTime);
         glfwPollEvents();

@@ -10,10 +10,12 @@
 #include "Translation.h"
 #include "Transformation_Composite.h"
 #include "Transformation_Component.h"
+#include "skycube.h"
 #include <vector>
 #include <random>
 #include <chrono>
 #include <GLFW/glfw3.h>
+#include <SOIL.h>
 
 using namespace std;
 using namespace glm;
@@ -27,11 +29,12 @@ public:
     void setUniformsAndDrawObjects(ShaderProgram* shaderProgram, const vec3& viewPos, const vec3& lightPos, const vec3& lightColor, const vec3& objectColor, const vector<DrawableObject*>& objects, const mat4& viewMatrix, const mat4& projectionMatrix, bool useLighting = true, bool setColor = true);
     void rotateTrees(float deltaTime);
     void updateProjectionMatrix(int width, int height);
+	void handleInput(int key);
     Camera* camera;
     Camera* camera2;
 
 private:
-	vector<DrawableObject*> scene1Objects, scene2Trees, scene2Ground, scene2Bushes, scene3Objects, scene4Objects, scene5Trees, scene5Ground, scene5Bushes;
+	vector<DrawableObject*> scene1Objects, scene2Trees, scene2Ground, scene2Bushes, scene3Objects, scene4Objects, scene5Trees, scene5Ground, scene5Bushes, scene2Skybox;
     vector<Light*> scene2Lights, scene5Lights;
     int currentScene, currentShader;
     mat4 projectionMatrix;
@@ -49,6 +52,7 @@ private:
     ShaderProgram* groundShaderNight;
     ShaderProgram* treeShaderNight;
     ShaderProgram* bushShaderNight;
+	ShaderProgram* skyboxShader;
 
     void setupScene1();
     void setupScene2();
@@ -61,5 +65,7 @@ private:
     Light* light_sc3;
     Light* light_sc4;
     Light* light_sc5;
+    GLuint grassTexture, cubemapTexture;
+    bool skyboxFollowCamera = true;
 };
 #endif
