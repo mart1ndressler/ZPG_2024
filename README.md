@@ -11,27 +11,68 @@ The main objectives of this project include:
 - Using object-oriented programming principles to manage scenes, transformations, and shaders effectively.
 - Implementing a camera system that allows for dynamic movement and multiple viewing perspectives.
 - Supporting multiple light sources, including dynamic, moving lights that simulate 'will-o'-the-wisps' in a forest scene.
-- Integrating attenuation for lights, ensuring that light intensity decreases with distance for a more realistic effect.
+- Adding support for distance-based attenuation, ensuring light intensity decreases realistically with distance.
 - Enabling dynamic rotations for certain objects and random translations to simulate natural movement, like rotating trees or moving lights.
+- Incorporating a **skybox** feature, allowing realistic environmental mapping and adding an action to pause the skybox from following the camera to display it as a stationary cube.
 
 ## Features
 
-- **Multiple Scenes**: The project contains multiple predefined scenes, each showcasing different models and shaders, including:
-  - A basic scene with a single triangle.
-  - A forest scene with multiple trees and bushes, along with dynamic lighting.
-  - A Phong shading scene featuring spheres.
-  - A scene demonstrating different shading models (Phong, Lambert, Blinn, and Constant) on various shapes.
-- **Lighting and Shading**:
+### 1. **Multiple Scenes**
+The project contains multiple predefined scenes, each showcasing different models and shaders, including:
+- A basic scene with a single triangle.
+- A forest scene with multiple trees and bushes, along with dynamic lighting.
+- A Phong shading scene featuring spheres.
+- A scene demonstrating different shading models (Phong, Lambert, Blinn, and Constant) on various shapes.
+
+### 2. **Lighting and Shading**
+- **Multiple Lights**:
   - Supports multiple lights with different colors and positions.
-  - Implements lighting models for realistic rendering, including ambient, diffuse, and specular reflections.
-  - Uses distance-based attenuation to simulate realistic light fall-off.
-- **Dynamic Object Transformations**:
-  - Objects can rotate dynamically, such as rotating trees in the forest.
-  - Moving lights simulate 'will-o'-the-wisps,' with random translation for natural movement.
-- **Camera Controls**: Enables navigation through scenes with camera movements (WASD keys) and mouse controls. Different cameras are used in different scenes to showcase various perspectives.
-- **Shaders**:
-  - Uses GLSL shaders for custom lighting and material effects.
-  - Implements various shading models, including Phong, Lambert, Blinn, and Constant shading.
-- **Transformation System**:
-  - Includes composite transformations for scaling, rotation, and translation of objects.
-  - A composite transformation system allows for reusable and flexible transformations across objects.
+  - Dynamic, moving lights simulate natural phenomena like 'will-o'-the-wisps.'
+- **Realistic Lighting**:
+  - Implements ambient, diffuse, and specular reflections for more realistic rendering.
+  - Supports attenuation to ensure light intensity diminishes with distance.
+- **Shader Models**:
+  - Implements various shading models using GLSL shaders, including Phong, Lambert, Blinn, and Constant shading.
+
+### 3. **Dynamic Object Transformations**
+- **Object Movement**:
+  - Objects, like trees, rotate dynamically in specific scenes.
+  - Lights randomly move, simulating natural, dynamic effects.
+- **Skybox Feature**:
+  - Realistic environmental cubemap mapping for the background.
+  - Added action to toggle the skybox to pause its following behavior and display it as a stationary cube in the scene.
+
+### 4. **Camera Controls**
+- **Navigation**:
+  - Camera movement is supported via WASD keys and mouse controls for free navigation.
+- **Multiple Views**:
+  - Different scenes utilize different camera setups to showcase various perspectives dynamically.
+
+### 5. **Shader System**
+- **Custom GLSL Shaders**:
+  - Vertex and fragment shaders are used to implement lighting and material effects.
+- **Real-Time Updates**:
+  - Shaders react dynamically to changes in light sources, materials, and transformations.
+
+### 6. **Transformation System**
+- **Composite Transformations**:
+  - Scaling, rotation, and translation transformations are handled through reusable components.
+  - Composite transformations allow flexible and hierarchical object manipulation.
+
+### 7. **Skybox Implementation**
+- A skybox is used to add a realistic background to the scenes.
+- Includes textures for environmental mapping, with the ability to stop the skybox from following the camera, turning it into a stationary cube.
+
+## Running the Project
+1. **Dependencies**:
+   - OpenGL
+   - GLFW
+   - SOIL (Simple OpenGL Image Library)
+2. **Compilation**:
+   - Use a C++ compiler with OpenGL and GLFW linked.
+3. **Controls**:
+   - `WASD`: Camera movement.
+   - Mouse: Look around.
+   - `T`: Toggle skybox following behavior.
+---
+This project is a foundation for exploring computer graphics principles and techniques, emphasizing hands-on implementation of realistic 3D scenes and dynamic effects.
