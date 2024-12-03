@@ -1,9 +1,10 @@
 ## C/C++ GENERAL
 
--  ..\..\Libraries\glew-2.1.0\include
--  ..\..\Libraries\glfw-3.4.bin.WIN64\include
--  ..\..\Libraries\glm-master
--  ..\..\Libraries\soil\include
+-  ..\\..\Libraries\glew-2.1.0\include
+-  ..\\..\Libraries\glfw-3.4.bin.WIN64\include
+-  ..\\..\Libraries\glm-master
+-  ..\\..\Libraries\soil\include
+-  ..\\..
 
 ## LINKER GENERAL
 
