@@ -1,7 +1,0 @@
-﻿  Light.cpp
-  Scene.cpp
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\DRE0065\Scene.cpp(482,23): warning C4244: inicializování: double se převádí na float; může dojít ke ztrátě dat.
-  Generování kódu...
-  Vytváří se kód.
-  Vytváření kódu se dokončilo.
-  DRE0065.vcxproj -> C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\week9\DRE0065_week9\DRE0065\x64\Debug\DRE0065.exe
